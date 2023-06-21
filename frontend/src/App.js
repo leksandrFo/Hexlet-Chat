@@ -2,23 +2,36 @@ import { useState, useMemo } from 'react';
 import {
   useLocation, Navigate, BrowserRouter, Routes, Route,
 } from 'react-router-dom';
+import AuthContext from './contexts/index.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import ChatPage from './components/pages/ChatPage.jsx';
 import Nav from './components/Nav.jsx';
-import AuthContext from './contexts/index.jsx';
 import useAuth from './hooks/index.jsx';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   const logIn = () => setLoggedIn(true);
+
   const logOut = () => {
     localStorage.removeItem('userId');
     setLoggedIn(false);
   };
 
-  const memoizedValue = useMemo(() => ({ loggedIn, logIn, logOut }), [loggedIn]);
+  const getAuthToken = () => {
+    const userId = JSON.parse(localStorage.getItem('userId'));
+
+    if (userId && userId.token) {
+      return { Authorization: userId.token };
+    }
+
+    return {};
+  };
+
+  const memoizedValue = useMemo(() => ({
+    loggedIn, logIn, logOut, getAuthToken,
+  }), [loggedIn]);
 
   return (
     <AuthContext.Provider value={memoizedValue}>

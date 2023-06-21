@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
 import useAuth from '../../hooks/index.jsx';
+import routes from '../../routes/routes.js';
 import loginImage from '../../assets/loginImage.jpg';
 
 const validate = yup.object().shape({
@@ -31,7 +32,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post('/api/v1/login', values);
+        const { data } = await axios.post(routes.loginPath(), values);
         localStorage.setItem('userId', JSON.stringify(data));
         auth.logIn();
         const { from } = location.state || { from: { pathname: '/' } };
