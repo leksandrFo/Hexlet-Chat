@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
-import useAuth from '../../hooks/index.jsx';
+import { useAuth } from '../../hooks/index.jsx';
 import routes from '../../routes/routes.js';
 import loginImage from '../../assets/loginImage.jpg';
 
