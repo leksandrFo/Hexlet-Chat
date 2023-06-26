@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import SocketContext from '../contexts/SocketContext.jsx';
@@ -8,10 +8,8 @@ const SocketProvider = ({ children }) => {
   const socket = io();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    socket.on('newMessage', (message) => {
-      dispatch(actions.sendMessage(message));
-    });
+  socket.on('newMessage', (message) => {
+    dispatch(actions.sendMessage(message));
   });
 
   const sendMessage = useCallback(() => socket.emit('newMessage'));

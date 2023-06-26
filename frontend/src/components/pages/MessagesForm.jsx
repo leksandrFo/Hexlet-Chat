@@ -26,7 +26,7 @@ const MessagesForm = ({ activeChannelId }) => {
     onSubmit: async (values) => {
       const message = {
         channelId: activeChannelId,
-        username: auth.getUserName(),
+        username: auth.userName,
         body: values,
       };
       try {

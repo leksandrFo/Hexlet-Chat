@@ -9,7 +9,7 @@ import MessagesForm from './MessagesForm.jsx';
 const Messages = () => {
   // const dispatch = useDispatch();
   const auth = useAuth();
-  const name = auth.getUserName();
+  const name = auth.userName;
   const channels = useSelector(channelsSelector.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
   const activeChannel = channels.find(({ id }) => id === activeChannelId);

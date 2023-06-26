@@ -3,17 +3,18 @@ import AuthContext from '../contexts/AuthContext.jsx';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userName, setUserName] = useState(null);
 
-  const logIn = () => setLoggedIn(true);
+  const logIn = (data) => {
+    localStorage.setItem('user', JSON.stringify(data));
+    setLoggedIn(true);
+    setUserName(data.username);
+  };
 
   const logOut = () => {
     localStorage.removeItem('userId');
     setLoggedIn(false);
-  };
-
-  const getUserName = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return user.username;
+    setUserName(null);
   };
 
   const getAuthToken = () => {
@@ -27,7 +28,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const authMemo = useMemo(() => ({
-    loggedIn, logIn, logOut, getAuthToken, getUserName,
+    loggedIn, logIn, logOut, getAuthToken, userName,
   }), [loggedIn]);
 
   return (
