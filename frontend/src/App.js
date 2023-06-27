@@ -9,6 +9,7 @@ import AuthProvider from './providers/AuthProvider.jsx';
 import SocketProvider from './providers/SocketProvider.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
+import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import ChatPage from './components/pages/ChatPage.jsx';
 import Nav from './components/Nav.jsx';
 import { useAuth } from './hooks/index.jsx';
@@ -38,6 +39,7 @@ const App = () => (
               )}
             />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<RegistrationPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

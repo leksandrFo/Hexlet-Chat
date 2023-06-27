@@ -29,7 +29,7 @@ const Messages = () => {
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {
             activeMessages.map((message) => {
-              const { id, username, text } = message;
+              const { id, username, body } = message;
               // const messageClass = cn('d-flex flex-wrap text-break mb-2', {
               //   'd-flex flex-wrap text-break mb-2': username === name,
               // });
@@ -48,14 +48,14 @@ const Messages = () => {
                   <div className="w-100">
                     <b>{`${username}:`}</b>
                   </div>
-                  {text}
+                  {body}
                 </div>
               );
             })
           }
         </div>
         <div className="mt-auto px-5 py-3">
-          <MessagesForm />
+          <MessagesForm activeChannelId={activeChannelId} />
         </div>
       </div>
     </div>

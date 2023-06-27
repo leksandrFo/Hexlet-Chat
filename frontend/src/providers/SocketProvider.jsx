@@ -1,21 +1,27 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import SocketContext from '../contexts/SocketContext.jsx';
-import { actions } from '../slices/messagesSlice.js';
+import { actions as messagesActions } from '../slices/messagesSlice.js';
 
 const SocketProvider = ({ children }) => {
-  const socket = io();
   const dispatch = useDispatch();
 
+  const socket = io();
   socket.on('newMessage', (message) => {
-    dispatch(actions.sendMessage(message));
+    dispatch(messagesActions.addMessage(message));
   });
 
-  const sendMessage = useCallback(() => socket.emit('newMessage'));
+  const sendMessage = (message) => {
+    socket.emit('newMessage', message);
+  };
+
+  const socketMemo = useMemo(() => ({
+    sendMessage,
+  }), [socket]);
 
   return (
-    <SocketContext.Provider value={sendMessage}>
+    <SocketContext.Provider value={socketMemo}>
       {children}
     </SocketContext.Provider>
   );

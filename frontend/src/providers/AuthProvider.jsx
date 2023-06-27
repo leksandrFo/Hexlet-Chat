@@ -12,13 +12,13 @@ const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    localStorage.removeItem('userId');
+    localStorage.removeItem('user');
     setLoggedIn(false);
     setUserName(null);
   };
 
   const getAuthToken = () => {
-    const userId = JSON.parse(localStorage.getItem('userId'));
+    const userId = JSON.parse(localStorage.getItem('user'));
 
     if (userId && userId.token) {
       return { Authorization: `Bearer ${userId.token}` };

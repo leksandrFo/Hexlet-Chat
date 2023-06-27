@@ -27,7 +27,7 @@ const MessagesForm = ({ activeChannelId }) => {
       const message = {
         channelId: activeChannelId,
         username: auth.userName,
-        body: values,
+        body: values.body,
       };
       try {
         await socket.sendMessage(message);
