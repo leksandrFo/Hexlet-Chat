@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import cn from 'classnames';
+import cn from 'classnames';
 import { selectors as channelsSelector } from '../../slices/channelsSlice.js';
 import { selectors } from '../../slices/messagesSlice.js';
 import { useAuth } from '../../hooks/index.jsx';
@@ -15,6 +15,7 @@ const Messages = () => {
   const activeChannel = channels.find(({ id }) => id === activeChannelId);
 
   const messages = useSelector(selectors.selectAll);
+  console.log(messages);
   const activeMessages = messages.filter(({ channelId }) => channelId === activeChannelId);
 
   return (
@@ -30,25 +31,18 @@ const Messages = () => {
           {
             activeMessages.map((message) => {
               const { id, username, body } = message;
-              // const messageClass = cn('d-flex flex-wrap text-break mb-2', {
-              //   'd-flex flex-wrap text-break mb-2': username === name,
-              // });
-              const messageStyle1 = {
-                background: 'Wheat',
-                marginLeft: '20%',
-              };
-              const messageStyle2 = {
-                background: 'LightBlue',
-                marginRight: '20%',
-              };
+              const messageClass = cn('message text-break mb-2', {
+                received: username !== name,
+                sent: username === name,
+              });
 
-              const messageStyle = username === name ? messageStyle1 : messageStyle2;
               return (
-                <div key={id} className="d-flex flex-wrap text-break mb-2" style={messageStyle}>
-                  <div className="w-100">
+                <div key={id} className={messageClass}>
+                  <div className="message-content d-flex flex-column">
+                    <span className="message-arrow" />
                     <b>{`${username}:`}</b>
+                    {body}
                   </div>
-                  {body}
                 </div>
               );
             })

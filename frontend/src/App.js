@@ -12,6 +12,7 @@ import LoginPage from './components/pages/LoginPage.jsx';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import ChatPage from './components/pages/ChatPage.jsx';
 import Nav from './components/Nav.jsx';
+import { appRoutes } from './routes/routes.js';
 import { useAuth } from './hooks/index.jsx';
 
 const PrivateRoute = ({ children }) => {
@@ -19,7 +20,7 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   return (
-    auth.loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+    auth.loggedIn ? children : <Navigate to={appRoutes.loginPage()} state={{ from: location }} />
   );
 };
 
@@ -31,16 +32,16 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route
-              path="/"
+              path={appRoutes.chatPage()}
               element={(
                 <PrivateRoute>
                   <ChatPage />
                 </PrivateRoute>
               )}
             />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<RegistrationPage />} />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path={appRoutes.loginPage()} element={<LoginPage />} />
+            <Route path={appRoutes.registrationPage()} element={<RegistrationPage />} />
+            <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </SocketProvider>

@@ -16,14 +16,14 @@ const MessagesForm = ({ activeChannelId }) => {
 
   useEffect(() => {
     input.current.focus();
-  }, []);
+  }, [activeChannelId]);
 
   const formik = useFormik({
     initialValues: {
       body: '',
     },
     validationSchema: validate,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
       const message = {
         channelId: activeChannelId,
         username: auth.userName,
@@ -31,8 +31,10 @@ const MessagesForm = ({ activeChannelId }) => {
       };
       try {
         await socket.sendMessage(message);
+        resetForm();
       } catch (error) {
-        console.log(error);
+        setSubmitting(false);
+        throw error;
       }
     },
   });

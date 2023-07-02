@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { useMemo, useState } from 'react';
 import AuthContext from '../contexts/AuthContext.jsx';
+import { serverRoutes } from '../routes/routes.js';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -17,6 +19,11 @@ const AuthProvider = ({ children }) => {
     setUserName(null);
   };
 
+  const signUp = async (userData) => {
+    const { data } = await axios.post(serverRoutes.registrationPath(), userData);
+    logIn(data);
+  };
+
   const getAuthToken = () => {
     const userId = JSON.parse(localStorage.getItem('user'));
 
@@ -28,7 +35,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const authMemo = useMemo(() => ({
-    loggedIn, logIn, logOut, getAuthToken, userName,
+    loggedIn, signUp, logIn, logOut, getAuthToken, userName,
   }), [loggedIn]);
 
   return (

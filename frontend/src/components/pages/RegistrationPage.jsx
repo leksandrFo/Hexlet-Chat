@@ -1,11 +1,9 @@
-import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
 import { useAuth } from '../../hooks/index.jsx';
-import routes from '../../routes/routes.js';
 import registrationImage from '../../assets/registrationImage.jpg';
 
 const validate = yup.object().shape({
@@ -41,17 +39,17 @@ const RegistrationPage = () => {
       confirmPassword: '',
     },
     validationSchema: validate,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
-        const { data } = await axios.post(routes.registrationPath(), values);
-        auth.logIn(data);
+        await auth.signUp(values);
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (error) {
-        formik.setSubmitting(false);
+        setSubmitting(false);
         if (error.isAxiosError && error.response.status === 409) {
           setAuthFailed(true);
           inputRef.current.select();
+          formik.errors.username = 'Такой пользователь уже существует';
           return;
         }
         throw error;
@@ -104,7 +102,7 @@ const RegistrationPage = () => {
                     id="password"
                     className="form-control"
                     value={formik.values.password}
-                    isInvalid={(formik.errors.password && formik.touched.password) || authFailed}
+                    isInvalid={(formik.errors.password && formik.touched.password)}
                   />
                   <FormLabel className="form-label" htmlFor="password">
                     Пароль

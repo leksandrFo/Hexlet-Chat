@@ -11,3 +11,57 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.message-content {
+  display: inline-block;
+  background-color: #ededed;
+  padding: 8px 16px;
+  border-radius: 8px;
+  max-width: 70%;
+  position: relative;
+  z-index: 1;
+}
+
+.received .message-content {
+  background-color: #dcf8c6;
+}
+
+.sent .message-content {
+  background: LightBlue;
+}
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.received .message-arrow {
+  position: absolute;
+  top: -5px;
+  left: -10px;
+  width: 1px;
+  height: 1px;
+  border-style: solid;
+  border-width: 10px 20px 10px 0;
+  border-color: transparent #dcf8c6 transparent transparent;
+  transform: rotate(25deg);
+}
+
+.sent .message-arrow {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  width: 1px;
+  height: 1px;
+  border-style: solid;
+  border-width: 10px 20px 10px 0;
+  border-color: transparent LightBlue transparent transparent;
+  transform: rotate(150deg);
+}
+
