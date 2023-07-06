@@ -1,6 +1,7 @@
 import {
   ModalHeader, ModalTitle, ModalBody, Button,
 } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useSocket } from '../../hooks/index.jsx';
 
@@ -12,8 +13,9 @@ const RemoveChannelModal = ({ handleClose, channelData }) => {
     try {
       await socket.removeChannel(channelData);
       handleClose();
+      toast.success(t('modals.remove.success'));
     } catch (error) {
-      throw error(t('errors.network'));
+      toast.error(t('errors.network'));
     }
   };
 

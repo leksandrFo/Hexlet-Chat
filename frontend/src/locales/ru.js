@@ -45,18 +45,21 @@ export default {
         nameChannel: 'Имя канала',
         cancel: 'Отменить',
         send: 'Отправить',
+        success: 'Канал создан',
       },
       remove: {
         removeChannel: 'Удалить канал',
         removeMessage: 'Уверены?',
         cancel: 'Отменить',
         remove: 'Удалить',
+        success: 'Канал удален',
       },
       rename: {
         renameChannel: 'Переименовать канал',
         nameChannel: 'Имя канала',
         cancel: 'Отменить',
         send: 'Отправить',
+        success: 'Канал переименован',
       },
     },
     errors: {

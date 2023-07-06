@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -50,7 +51,7 @@ const LoginPage = () => {
           inputRef.current.select();
           return;
         }
-        throw error(t('errors.network'));
+        toast.error(t('errors.network'));
       }
     },
   });

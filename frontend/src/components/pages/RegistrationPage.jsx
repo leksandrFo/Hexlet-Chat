@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/index.jsx';
 import registrationImage from '../../assets/registrationImage.jpg';
@@ -55,7 +56,7 @@ const RegistrationPage = () => {
           formik.errors.username = t('errors.alreadyExists');
           return;
         }
-        throw error(t('errors.network'));
+        toast.error(t('errors.network'));
       }
     },
   });

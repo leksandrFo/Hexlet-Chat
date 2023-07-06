@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import {
   ModalHeader, ModalTitle, ModalBody, Form, FormControl, FormLabel, Button,
 } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -40,10 +41,11 @@ const AddChannelModal = ({ handleClose }) => {
       try {
         await socket.createChannel(channel);
         handleClose();
+        toast.success(t('modals.add.success'));
         formik.setSubmitting(false);
       } catch (error) {
         formik.setSubmitting(false);
-        throw error(t('errors.network'));
+        toast.error(t('errors.network'));
       }
     },
   });

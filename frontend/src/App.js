@@ -1,3 +1,4 @@
+import 'react-toastify/dist/ReactToastify.css';
 import {
   useLocation,
   Navigate,
@@ -5,6 +6,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import AuthProvider from './providers/AuthProvider.jsx';
 import SocketProvider from './providers/SocketProvider.jsx';
 import I18nProvider from './providers/I18nextProvider.jsx';
@@ -46,6 +48,7 @@ const App = () => (
               <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
             </Routes>
           </BrowserRouter>
+          <ToastContainer />
         </SocketProvider>
       </AuthProvider>
     </I18nProvider>

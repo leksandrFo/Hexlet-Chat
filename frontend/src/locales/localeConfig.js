@@ -1,6 +1,6 @@
 import resources from './index.js';
 
-const DEFAULT_LANGUAGE = 'en';
+const DEFAULT_LANGUAGE = 'ru';
 
 export default {
   resources,

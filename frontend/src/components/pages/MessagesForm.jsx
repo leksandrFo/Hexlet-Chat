@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { BsArrowRightSquare } from 'react-icons/bs';
 import { useTranslation } from 'react-i18next';
 import { useAuth, useSocket } from '../../hooks/index.jsx';
@@ -36,7 +37,7 @@ const MessagesForm = ({ activeChannelId }) => {
         resetForm();
       } catch (error) {
         setSubmitting(false);
-        throw error(t('errors.network'));
+        toast.error(t('errors.network'));
       }
     },
   });

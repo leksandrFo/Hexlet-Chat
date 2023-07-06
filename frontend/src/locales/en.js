@@ -44,18 +44,21 @@ export default {
         nameChannel: 'Channel name',
         cancel: 'Cancel',
         send: 'Send',
+        success: 'Channel was created',
       },
       remove: {
         removeChannel: 'Remove channel',
         removeMessage: 'Are you sure?,',
         cancel: 'Cancel',
         remove: 'Remove',
+        success: 'Channel was removed',
       },
       rename: {
         renameChannel: 'Rename channel',
         nameChannel: 'Имя канала',
         cancel: 'Cancel',
         send: 'Send',
+        success: 'Channel was renamed',
       },
     },
     errors: {
