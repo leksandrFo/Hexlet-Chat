@@ -4,6 +4,7 @@ import {
   Button, ButtonGroup, Dropdown,
 } from 'react-bootstrap';
 import { BsPlusSquare } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 import { fetchChannels, selectors, actions as channelsActions } from '../../slices/channelsSlice.js';
 import { actions as modalsActions } from '../../slices/modalSlice.js';
 import { useAuth } from '../../hooks/index.jsx';
@@ -11,15 +12,15 @@ import { useAuth } from '../../hooks/index.jsx';
 const Channels = () => {
   const dispatch = useDispatch();
   const auth = useAuth();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchChannels(auth.getAuthToken()));
   }, [dispatch]);
 
   const channels = useSelector(selectors.selectAll);
-  // console.log(channels);
+
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  // console.log('activeChannelId', activeChannelId);
 
   const handleChannelClick = (id) => {
     dispatch(channelsActions.setActiveChannel(id));
@@ -51,7 +52,7 @@ const Channels = () => {
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Каналы</b>
+        <b>{t('chatPage.channels')}</b>
         <Button
           variant="light"
           onClick={handleAddChannelClick}
@@ -92,14 +93,14 @@ const Channels = () => {
                       variant={channelVariant}
                       className="flex-grow-0 dropdown-toggle-split"
                     >
-                      <span className="visually-hidden">Управление каналом</span>
+                      <span className="visually-hidden">{t('chatPage.channelControl')}</span>
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => handleRemoveChannelClick(id)}>
-                        Удалить
+                        {t('chatPage.remove')}
                       </Dropdown.Item>
                       <Dropdown.Item onClick={() => handleRenameChannelClick(id, name)}>
-                        Переименовать
+                        {t('chatPage.rename')}
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

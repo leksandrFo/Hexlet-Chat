@@ -5,15 +5,15 @@ import {
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { selectors } from '../../slices/channelsSlice.js';
 import { useSocket } from '../../hooks/index.jsx';
 
 const AddChannelModal = ({ handleClose }) => {
   const channels = useSelector(selectors.selectAll);
-  // const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  // console.log(activeChannelId);
   const inputRef = useRef();
   const socket = useSocket();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -22,9 +22,10 @@ const AddChannelModal = ({ handleClose }) => {
   const validate = yup.object().shape({
     name: yup
       .string()
-      .min(3).max(20)
-      .notOneOf(channels.map((channel) => channel.name))
-      .required(),
+      .min(3, t('errors.usernameMinMax'))
+      .max(20, t('errors.usernameMinMax'))
+      .notOneOf(channels.map((channel) => channel.name), t('errors.unique'))
+      .required(t('errors.required')),
   });
 
   const formik = useFormik({
@@ -42,7 +43,7 @@ const AddChannelModal = ({ handleClose }) => {
         formik.setSubmitting(false);
       } catch (error) {
         formik.setSubmitting(false);
-        throw error;
+        throw error(t('errors.network'));
       }
     },
   });
@@ -51,7 +52,7 @@ const AddChannelModal = ({ handleClose }) => {
     <div className="modal-content">
       <ModalHeader closeButton>
         <ModalTitle className="modal-title h4">
-          Добавить канал
+          {t('modals.add.addChannel')}
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="modal-body">
@@ -66,7 +67,7 @@ const AddChannelModal = ({ handleClose }) => {
             ref={inputRef}
           />
           <FormLabel className="visually-hidden" htmlFor="name">
-            Имя канала
+            {t('modals.add.nameChannel')}
           </FormLabel>
           <Form.Control.Feedback type="invalid">
             {formik.errors.name}
@@ -77,14 +78,14 @@ const AddChannelModal = ({ handleClose }) => {
               type="button"
               className="me-2 btn btn-secondary"
             >
-              Отменить
+              {t('modals.add.cancel')}
             </Button>
             <Button
               onClick={formik.handleSubmit}
               type="submit"
               className="btn btn-primary"
             >
-              Отправить
+              {t('modals.add.send')}
             </Button>
           </div>
         </Form>

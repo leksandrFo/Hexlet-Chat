@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { BsArrowRightSquare } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 import { useAuth, useSocket } from '../../hooks/index.jsx';
 
 const validate = yup.object().shape({
@@ -13,6 +14,7 @@ const MessagesForm = ({ activeChannelId }) => {
   const auth = useAuth();
   const socket = useSocket();
   const input = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     input.current.focus();
@@ -34,7 +36,7 @@ const MessagesForm = ({ activeChannelId }) => {
         resetForm();
       } catch (error) {
         setSubmitting(false);
-        throw error;
+        throw error(t('errors.network'));
       }
     },
   });
@@ -45,8 +47,8 @@ const MessagesForm = ({ activeChannelId }) => {
         <FormControl
           name="body"
           required=""
-          aria-label="Новое сообщение"
-          placeholder="Введите сообщение..."
+          aria-label={t('chatPage.inputLabel')}
+          placeholder={t('chatPage.inputPlaceholder')}
           id="body"
           className="border-0 p-0 ps-2 form-control"
           value={formik.values.body}
@@ -59,7 +61,7 @@ const MessagesForm = ({ activeChannelId }) => {
           variant="group-vertical"
         >
           <BsArrowRightSquare viewBox="0 0 16 16" size="20" fill="currentColor" />
-          <span className="visually-hidden">Отправить</span>
+          <span className="visually-hidden">{t('chatPage.send')}</span>
         </Button>
       </div>
     </Form>

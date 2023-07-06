@@ -7,9 +7,9 @@ import RenameChannelModal from './RenameChannelModal.jsx';
 
 const Modals = () => {
   const dispatch = useDispatch();
-  const operation = useSelector((state) => state.modal.operation);
-  const isOpened = useSelector((state) => state.modal.isOpened);
-  const channelData = useSelector((state) => state.modal.channelData);
+  const operation = useSelector((state) => state.modals.operation);
+  const isOpened = useSelector((state) => state.modals.isOpened);
+  const channelData = useSelector((state) => state.modals.channelData);
   console.log(operation, isOpened, channelData);
   // console.log(channelData);
 

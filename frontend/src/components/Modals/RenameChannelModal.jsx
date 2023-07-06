@@ -5,15 +5,15 @@ import {
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 import { selectors } from '../../slices/channelsSlice.js';
 import { useSocket } from '../../hooks/index.jsx';
 
 const RenameChannelModal = ({ handleClose, channelData }) => {
   const channels = useSelector(selectors.selectAll);
-  // const activeChannelId = useSelector((state) => state.channels.activeChannelId);
-  // console.log(activeChannelId);
   const inputRef = useRef();
   const socket = useSocket();
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -23,9 +23,10 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
   const validate = yup.object().shape({
     name: yup
       .string()
-      .min(3).max(20)
-      .notOneOf(channels.map((channel) => channel.name))
-      .required(),
+      .min(3, t('errors.usernameMinMax'))
+      .max(20, t('errors.usernameMinMax'))
+      .notOneOf(channels.map((channel) => channel.name), t('errors.unique'))
+      .required(t('errors.required')),
   });
 
   const formik = useFormik({
@@ -43,7 +44,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
         handleClose();
       } catch (error) {
         formik.setSubmitting(false);
-        throw error;
+        throw error(t('errors.network'));
       }
     },
   });
@@ -52,7 +53,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
     <div className="modal-content">
       <ModalHeader closeButton>
         <ModalTitle className="modal-title h4">
-          Переименовать канал
+          {t('modals.rename.renameChannel')}
         </ModalTitle>
       </ModalHeader>
       <ModalBody className="modal-body">
@@ -67,7 +68,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
             ref={inputRef}
           />
           <FormLabel className="visually-hidden" htmlFor="name">
-            Имя канала
+            {t('modals.rename.nameChannel')}
           </FormLabel>
           <Form.Control.Feedback type="invalid">
             {formik.errors.name}
@@ -78,14 +79,14 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
               variant="secondary"
               className="me-2"
             >
-              Отменить
+              {t('modals.rename.cancel')}
             </Button>
             <Button
               onClick={formik.handleSubmit}
               type="submit"
               variant="primary"
             >
-              Отправить
+              {t('modals.rename.send')}
             </Button>
           </div>
         </Form>

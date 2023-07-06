@@ -1,21 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { selectors as channelsSelector } from '../../slices/channelsSlice.js';
 import { selectors } from '../../slices/messagesSlice.js';
 import { useAuth } from '../../hooks/index.jsx';
 import MessagesForm from './MessagesForm.jsx';
 
 const Messages = () => {
-  // const dispatch = useDispatch();
   const auth = useAuth();
+  const { t } = useTranslation();
   const name = auth.userName;
   const channels = useSelector(channelsSelector.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
   const activeChannel = channels.find(({ id }) => id === activeChannelId);
-
   const messages = useSelector(selectors.selectAll);
-  console.log(messages);
   const activeMessages = messages.filter(({ channelId }) => channelId === activeChannelId);
 
   return (
@@ -25,7 +24,9 @@ const Messages = () => {
           <p className="m-0">
             <b>{`# ${activeChannel ? activeChannel.name : ''}`}</b>
           </p>
-          <span className="text-muted">{`${activeMessages.length} сообщений`}</span>
+          <span className="text-muted">
+            {t('chatPage.counter.count', { count: activeMessages.length })}
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {

@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import AuthProvider from './providers/AuthProvider.jsx';
 import SocketProvider from './providers/SocketProvider.jsx';
+import I18nProvider from './providers/I18nextProvider.jsx';
 import NotFoundPage from './components/pages/NotFoundPage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
@@ -26,26 +27,28 @@ const PrivateRoute = ({ children }) => {
 
 const App = () => (
   <div className="d-flex flex-column h-100">
-    <AuthProvider>
-      <SocketProvider>
-        <Nav />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path={appRoutes.chatPage()}
-              element={(
-                <PrivateRoute>
-                  <ChatPage />
-                </PrivateRoute>
-              )}
-            />
-            <Route path={appRoutes.loginPage()} element={<LoginPage />} />
-            <Route path={appRoutes.registrationPage()} element={<RegistrationPage />} />
-            <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
-          </Routes>
-        </BrowserRouter>
-      </SocketProvider>
-    </AuthProvider>
+    <I18nProvider>
+      <AuthProvider>
+        <SocketProvider>
+          <Nav />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path={appRoutes.chatPage()}
+                element={(
+                  <PrivateRoute>
+                    <ChatPage />
+                  </PrivateRoute>
+                )}
+              />
+              <Route path={appRoutes.loginPage()} element={<LoginPage />} />
+              <Route path={appRoutes.registrationPage()} element={<RegistrationPage />} />
+              <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
+            </Routes>
+          </BrowserRouter>
+        </SocketProvider>
+      </AuthProvider>
+    </I18nProvider>
   </div>
 );
 
