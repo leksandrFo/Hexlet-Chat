@@ -6,6 +6,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import leoProfanity from 'leo-profanity';
 import { ToastContainer } from 'react-toastify';
 import AuthProvider from './providers/AuthProvider.jsx';
 import SocketProvider from './providers/SocketProvider.jsx';
@@ -26,6 +27,8 @@ const PrivateRoute = ({ children }) => {
     auth.loggedIn ? children : <Navigate to={appRoutes.loginPage()} state={{ from: location }} />
   );
 };
+
+leoProfanity.add(leoProfanity.getDictionary('ru'), leoProfanity.getDictionary('en'));
 
 const App = () => (
   <div className="d-flex flex-column h-100">

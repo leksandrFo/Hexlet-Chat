@@ -69,6 +69,8 @@ export default {
       usernameMinMax: 'From 3 to 20 symbols',
       alreadyExists: 'The user already exists',
       unique: 'Must be unique',
+      notCorrectUsername: 'The name cannot contain obscene words',
+      notCorrectChannelName: 'The channel name cannot contain obscene words',
       network: 'Connection problem',
     },
   },

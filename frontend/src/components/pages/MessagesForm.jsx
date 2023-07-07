@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import leoProfanity from 'leo-profanity';
 import { Form, FormControl, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { BsArrowRightSquare } from 'react-icons/bs';
@@ -30,7 +31,7 @@ const MessagesForm = ({ activeChannelId }) => {
       const message = {
         channelId: activeChannelId,
         username: auth.userName,
-        body: values.body,
+        body: leoProfanity.clean(values.body),
       };
       try {
         await socket.sendMessage(message);

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import {
   ModalHeader, ModalTitle, ModalBody, Form, FormControl, FormLabel, Button,
 } from 'react-bootstrap';
+import leoProfanity from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import * as yup from 'yup';
@@ -26,6 +27,7 @@ const AddChannelModal = ({ handleClose }) => {
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
       .notOneOf(channels.map((channel) => channel.name), t('errors.unique'))
+      .notOneOf(leoProfanity.words, t('errors.notCorrectChannelName'))
       .required(t('errors.required')),
   });
 
@@ -36,9 +38,10 @@ const AddChannelModal = ({ handleClose }) => {
     validationSchema: validate,
     onSubmit: async (values) => {
       const channel = {
-        name: values.name,
+        name: leoProfanity.clean(values.name),
       };
       try {
+        console.log(channel);
         await socket.createChannel(channel);
         handleClose();
         toast.success(t('modals.add.success'));

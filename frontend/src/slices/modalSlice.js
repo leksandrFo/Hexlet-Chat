@@ -14,8 +14,6 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     showModal: (state, { payload }) => {
-      console.log('showModal');
-      console.log(payload);
       const { operation, channelData } = payload;
       // eslint-disable-next-line no-param-reassign
       state.operation = operation;

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
+import leoProfanity from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../hooks/index.jsx';
@@ -21,6 +22,7 @@ const RegistrationPage = () => {
       .string()
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
+      .notOneOf(leoProfanity.words, t('errors.notCorrectUsername'))
       .required(t('errors.required')),
     password: yup
       .string()
