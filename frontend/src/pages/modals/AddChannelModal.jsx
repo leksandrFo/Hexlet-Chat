@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { selectors } from '../../slices/channelsSlice.js';
+import { selectors } from '../../slices/channelsSlice';
 import { useSocket } from '../../hooks/index.jsx';
 
 const AddChannelModal = ({ handleClose }) => {

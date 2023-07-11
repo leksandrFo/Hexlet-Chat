@@ -1,8 +1,8 @@
 import { React } from 'react';
 import { Navbar, Container, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../hooks/index.jsx';
-import { appRoutes } from '../routes/routes.js';
+import { useAuth } from '../../hooks/index.jsx';
+import { appRoutes } from '../../routes/routes.js';
 
 const Nav = () => {
   const auth = useAuth();
