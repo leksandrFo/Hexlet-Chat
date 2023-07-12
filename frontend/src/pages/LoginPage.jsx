@@ -97,11 +97,9 @@ const LoginPage = () => {
                       isInvalid={authFailed}
                     />
                     <FormLabel htmlFor="password">{t('loginPage.password')}</FormLabel>
-                    {authFailed && (
-                      <Form.Control.Feedback type="invalid" tooltip>
-                        {t('errors.authFailed')}
-                      </Form.Control.Feedback>
-                    )}
+                    <Form.Control.Feedback type="invalid" tooltip>
+                      {t('errors.authFailed')}
+                    </Form.Control.Feedback>
                   </div>
                   <button type="submit" className="w-100 mb-3 btn btn-outline-primary">{t('loginPage.submit')}</button>
                 </Form>

@@ -27,8 +27,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
       .string()
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
-      .notOneOf(channels.map((channel) => channel.name), t('errors.unique'))
-      .notOneOf(leoProfanity.words, t('errors.notCorrectChannelName'))
+      .notOneOf([...channels.map((channel) => channel.name), ...leoProfanity.words], ({ value }) => (leoProfanity.words.includes(value) ? t('errors.notCorrectChannelName') : t('errors.unique')))
       .required(t('errors.required')),
   });
 
@@ -54,24 +53,25 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
   });
 
   return (
-    <div className="modal-content">
+    <>
       <ModalHeader closeButton>
         <ModalTitle className="modal-title h4">
           {t('modals.rename.renameChannel')}
         </ModalTitle>
       </ModalHeader>
-      <ModalBody className="modal-body">
+      <ModalBody>
         <Form onSubmit={formik.handleSubmit}>
           <FormControl
             onChange={formik.handleChange}
+            id="name"
             name="name"
             required=""
-            className="mb-2 form-control"
+            className="mb-2"
             value={formik.values.name}
             isInvalid={formik.errors.name && formik.touched.name}
             ref={inputRef}
           />
-          <FormLabel className="visually-hidden" htmlFor="name">
+          <FormLabel htmlFor="name" className="visually-hidden">
             {t('modals.rename.nameChannel')}
           </FormLabel>
           <Form.Control.Feedback type="invalid">
@@ -95,7 +95,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
           </div>
         </Form>
       </ModalBody>
-    </div>
+    </>
   );
 };
 

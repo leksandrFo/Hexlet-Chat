@@ -52,7 +52,7 @@ export default {
         removeMessage: 'Уверены?',
         cancel: 'Отменить',
         remove: 'Удалить',
-        success: 'Канал удален',
+        success: 'Канал удалён',
       },
       rename: {
         renameChannel: 'Переименовать канал',
