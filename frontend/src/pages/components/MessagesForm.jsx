@@ -56,6 +56,7 @@ const MessagesForm = ({ activeChannelId }) => {
           value={formik.values.body}
           onChange={formik.handleChange}
           ref={input}
+          autoComplete="off"
         />
         <Button
           type="submit"

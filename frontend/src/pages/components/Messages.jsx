@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Message from './Message.jsx';
@@ -7,12 +7,19 @@ import { selectors } from '../../slices/messagesSlice.js';
 import MessagesForm from './MessagesForm.jsx';
 
 const Messages = () => {
+  const lastMessage = useRef();
   const { t } = useTranslation();
   const channels = useSelector(channelsSelector.selectAll);
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
   const activeChannel = channels.find(({ id }) => id === activeChannelId);
   const messages = useSelector(selectors.selectAll);
   const activeMessages = messages.filter(({ channelId }) => channelId === activeChannelId);
+
+  useEffect(() => {
+    lastMessage.current.scrollIntoView({
+      behavior: 'smooth',
+    });
+  }, [activeMessages.length]);
 
   return (
     <div className="col p-0 h-100">
@@ -32,6 +39,7 @@ const Messages = () => {
               message={message}
             />
           ))}
+          <span ref={lastMessage} />
         </div>
         <div className="mt-auto px-5 py-3">
           <MessagesForm activeChannelId={activeChannelId} />

@@ -70,6 +70,7 @@ const RenameChannelModal = ({ handleClose, channelData }) => {
             value={formik.values.name}
             isInvalid={formik.errors.name && formik.touched.name}
             ref={inputRef}
+            autoComplete="off"
           />
           <FormLabel htmlFor="name" className="visually-hidden">
             {t('modals.rename.nameChannel')}

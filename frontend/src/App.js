@@ -41,33 +41,35 @@ const PrivateRoute = ({ children }) => {
 leoProfanity.add(leoProfanity.getDictionary('ru'), leoProfanity.getDictionary('en'));
 
 const App = () => (
-  <Provider config={rollbarConfig}>
-    <ErrorBoundary>
-      <I18nProvider>
-        <AuthProvider>
-          <SocketProvider>
-            <Nav />
-            <BrowserRouter>
-              <Routes>
-                <Route
-                  path={appRoutes.chatPage()}
-                  element={(
-                    <PrivateRoute>
-                      <ChatPage />
-                    </PrivateRoute>
-                  )}
-                />
-                <Route path={appRoutes.loginPage()} element={<LoginPage />} />
-                <Route path={appRoutes.registrationPage()} element={<RegistrationPage />} />
-                <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
-              </Routes>
-            </BrowserRouter>
-            <ToastContainer />
-          </SocketProvider>
-        </AuthProvider>
-      </I18nProvider>
-    </ErrorBoundary>
-  </Provider>
+  <div className="d-flex flex-column h-100">
+    <Provider config={rollbarConfig}>
+      <ErrorBoundary>
+        <I18nProvider>
+          <AuthProvider>
+            <SocketProvider>
+              <Nav />
+              <BrowserRouter>
+                <Routes>
+                  <Route
+                    path={appRoutes.chatPage()}
+                    element={(
+                      <PrivateRoute>
+                        <ChatPage />
+                      </PrivateRoute>
+                    )}
+                  />
+                  <Route path={appRoutes.loginPage()} element={<LoginPage />} />
+                  <Route path={appRoutes.registrationPage()} element={<RegistrationPage />} />
+                  <Route path={appRoutes.notFoundPage()} element={<NotFoundPage />} />
+                </Routes>
+              </BrowserRouter>
+              <ToastContainer />
+            </SocketProvider>
+          </AuthProvider>
+        </I18nProvider>
+      </ErrorBoundary>
+    </Provider>
+  </div>
 );
 
 export default App;

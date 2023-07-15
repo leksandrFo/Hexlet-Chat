@@ -13,9 +13,11 @@ const Message = ({ message }) => {
 
   return (
     <div key={id} className={messageClass}>
-      <div className="message-content d-flex flex-column">
+      <div className="message-content d-flex flex-row gap-1">
         <span className="message-arrow" />
-        <b>{`${username}:`}</b>
+        <div className="flex-shrink-0">
+          <b>{`${username}:`}</b>
+        </div>
         {body}
       </div>
     </div>

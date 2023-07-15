@@ -64,91 +64,88 @@ const RegistrationPage = () => {
   });
 
   return (
-    <div className="d-flex flex-column h-100">
-      <div className="container-fluid h-100">
-        <div className="row justify-content-center align-content-center h-100">
-          <div className="col-12 col-md-8 col-xxl-6">
-            <div className="card shadow-sm">
-              <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
-                <div>
-                  <img src={registrationImage} className="rounded-circle" alt={t('registrationPage.signUp')} />
-                </div>
-                <Form className="w-50" onSubmit={formik.handleSubmit}>
-                  <h1 className="text-center mb-4">
-                    {t('registrationPage.signUp')}
-                  </h1>
-                  <div className="form-floating mb-3">
-                    <FormControl
-                      onChange={formik.handleChange}
-                      placeholder={t('errors.usernameMinMax')}
-                      name="username"
-                      autocomplete="username"
-                      required=""
-                      id="username"
-                      className="form-floating mb-3"
-                      value={formik.values.username}
-                      isInvalid={(formik.touched.username && formik.errors.username) || authFailed}
-                      ref={inputRef}
-                    />
-                    <FormLabel className="form-label" htmlFor="username">
-                      {t('registrationPage.username')}
-                    </FormLabel>
-                    <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.touched.username && formik.errors.username}
-                    </Form.Control.Feedback>
-                  </div>
-                  <div className="form-floating mb-3">
-                    <FormControl
-                      onChange={formik.handleChange}
-                      placeholder={t('errors.passwordMin')}
-                      name="password"
-                      aria-describedby="passwordHelpBlock"
-                      required=""
-                      autocomplete="new-password"
-                      type="password"
-                      id="password"
-                      className="form-control"
-                      value={formik.values.password}
-                      isInvalid={(formik.errors.password && formik.touched.password)}
-                    />
-                    <FormLabel className="form-label" htmlFor="password">
-                      {t('registrationPage.password')}
-                    </FormLabel>
-                    <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.errors.password && formik.errors.password}
-                    </Form.Control.Feedback>
-                  </div>
-                  <div className="form-floating mb-4">
-                    <FormControl
-                      onChange={formik.handleChange}
-                      placeholder={t('errors.passwordMatch')}
-                      name="confirmPassword"
-                      required=""
-                      autocomplete="new-password"
-                      type="password"
-                      id="confirmPassword"
-                      className="form-control"
-                      value={formik.values.confirmPassword}
-                      isInvalid={formik.errors.confirmPassword && formik.touched.confirmPassword}
-                    />
-                    <FormLabel className="form-label" htmlFor="confirmPassword">
-                      {t('registrationPage.confirmPassword')}
-                    </FormLabel>
-                    <Form.Control.Feedback type="invalid" tooltip>
-                      {formik.errors.confirmPassword && formik.errors.confirmPassword}
-                    </Form.Control.Feedback>
-                  </div>
-                  <button type="submit" className="w-100 btn btn-outline-primary">
-                    {t('registrationPage.submit')}
-                  </button>
-                </Form>
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <div className="card shadow-sm">
+            <div className="card-body d-flex flex-column flex-md-row justify-content-around align-items-center p-5">
+              <div>
+                <img src={registrationImage} className="rounded-circle" alt={t('registrationPage.signUp')} />
               </div>
+              <Form className="w-50" onSubmit={formik.handleSubmit}>
+                <h1 className="text-center mb-4">
+                  {t('registrationPage.signUp')}
+                </h1>
+                <div className="form-floating mb-3">
+                  <FormControl
+                    onChange={formik.handleChange}
+                    placeholder={t('errors.usernameMinMax')}
+                    name="username"
+                    autocomplete="username"
+                    required=""
+                    id="username"
+                    className="form-floating mb-3"
+                    value={formik.values.username}
+                    isInvalid={(formik.touched.username && formik.errors.username) || authFailed}
+                    ref={inputRef}
+                  />
+                  <FormLabel className="form-label" htmlFor="username">
+                    {t('registrationPage.username')}
+                  </FormLabel>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.touched.username && formik.errors.username}
+                  </Form.Control.Feedback>
+                </div>
+                <div className="form-floating mb-3">
+                  <FormControl
+                    onChange={formik.handleChange}
+                    placeholder={t('errors.passwordMin')}
+                    name="password"
+                    aria-describedby="passwordHelpBlock"
+                    required=""
+                    autocomplete="new-password"
+                    type="password"
+                    id="password"
+                    className="form-control"
+                    value={formik.values.password}
+                    isInvalid={(formik.errors.password && formik.touched.password)}
+                  />
+                  <FormLabel className="form-label" htmlFor="password">
+                    {t('registrationPage.password')}
+                  </FormLabel>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.errors.password && formik.errors.password}
+                  </Form.Control.Feedback>
+                </div>
+                <div className="form-floating mb-4">
+                  <FormControl
+                    onChange={formik.handleChange}
+                    placeholder={t('errors.passwordMatch')}
+                    name="confirmPassword"
+                    required=""
+                    autocomplete="new-password"
+                    type="password"
+                    id="confirmPassword"
+                    className="form-control"
+                    value={formik.values.confirmPassword}
+                    isInvalid={formik.errors.confirmPassword && formik.touched.confirmPassword}
+                  />
+                  <FormLabel className="form-label" htmlFor="confirmPassword">
+                    {t('registrationPage.confirmPassword')}
+                  </FormLabel>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {formik.errors.confirmPassword && formik.errors.confirmPassword}
+                  </Form.Control.Feedback>
+                </div>
+                <button type="submit" className="w-100 btn btn-outline-primary">
+                  {t('registrationPage.submit')}
+                </button>
+              </Form>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   );
 };
 

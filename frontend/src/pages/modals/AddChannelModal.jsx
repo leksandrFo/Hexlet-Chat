@@ -26,8 +26,7 @@ const AddChannelModal = ({ handleClose }) => {
       .string()
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
-      .notOneOf(channels.map((channel) => channel.name), t('errors.unique'))
-      .notOneOf(leoProfanity.words, t('errors.notCorrectChannelName'))
+      .notOneOf([...channels.map((channel) => channel.name), ...leoProfanity.words], ({ value }) => (leoProfanity.words.includes(value) ? t('errors.notCorrectChannelName') : t('errors.unique')))
       .required(t('errors.required')),
   });
 
@@ -70,6 +69,7 @@ const AddChannelModal = ({ handleClose }) => {
             value={formik.values.name}
             isInvalid={formik.errors.name && formik.touched.name}
             ref={inputRef}
+            autoComplete="off"
           />
           <FormLabel className="visually-hidden" htmlFor="name">
             {t('modals.add.nameChannel')}

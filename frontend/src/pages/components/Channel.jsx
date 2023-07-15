@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Button, ButtonGroup, Dropdown,
@@ -9,8 +10,10 @@ import { actions as modalsActions } from '../../slices/modalSlice.js';
 const Channel = ({ channel }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  const channelRef = useRef();
   const activeChannelId = useSelector((state) => state.channels.activeChannelId);
+  const lastChannel = (channel.id === activeChannelId) ? channelRef : null;
+  const channelVariant = (channel.id === activeChannelId) ? 'secondary' : 'light';
 
   const handleChannelClick = (id) => {
     dispatch(channelsActions.setActiveChannel(id));
@@ -35,7 +38,10 @@ const Channel = ({ channel }) => {
     }));
   };
 
-  const channelVariant = (channel.id === activeChannelId) ? 'secondary' : 'light';
+  useEffect(() => {
+    const activeChannel = document.querySelector('.btn-secondary');
+    channelRef.current?.lastElementChild?.scrollIntoView(activeChannel);
+  }, []);
 
   return (
     !channel.removable ? (
@@ -50,7 +56,7 @@ const Channel = ({ channel }) => {
         </Button>
       </li>
     ) : (
-      <li key={channel.id} className="nav-item w-100">
+      <li key={channel.id} className="nav-item w-100" ref={lastChannel}>
         <Dropdown as={ButtonGroup} className="d-flex">
           <Button
             onClick={() => handleChannelClick(channel.id)}
