@@ -40,7 +40,6 @@ const AddChannelModal = ({ handleClose }) => {
         name: leoProfanity.clean(values.name),
       };
       try {
-        console.log(channel);
         await socket.createChannel(channel);
         handleClose();
         toast.success(t('modals.add.success'));
