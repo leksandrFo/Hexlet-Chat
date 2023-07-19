@@ -1,15 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import './index.css';
-import App from './App';
-import store from './slices/store.js';
+import Init from './Init';
 
-const root = ReactDOM.createRoot(document.getElementById('chat'));
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-);
+const app = async () => {
+  const root = ReactDOM.createRoot(document.getElementById('chat'));
+  root.render(await Init());
+};
+
+app();

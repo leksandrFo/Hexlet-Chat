@@ -4,10 +4,11 @@ import AuthContext from '../contexts/AuthContext.jsx';
 import { serverRoutes } from '../routes/routes.js';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('user'));
   const [userName, setUserName] = useState(null);
 
-  const logIn = (data) => {
+  const logIn = async (logInData) => {
+    const { data } = await axios.post(serverRoutes.loginPath(), logInData);
     localStorage.setItem('user', JSON.stringify(data));
     setLoggedIn(true);
     setUserName(data.username);
@@ -19,12 +20,14 @@ const AuthProvider = ({ children }) => {
     setUserName(null);
   };
 
-  const signUp = async (userData) => {
-    const { data } = await axios.post(serverRoutes.registrationPath(), userData);
-    logIn(data);
+  const signUp = async (signUpData) => {
+    const { data } = await axios.post(serverRoutes.registrationPath(), signUpData);
+    localStorage.setItem('user', JSON.stringify(data));
+    setLoggedIn(true);
+    setUserName(data.username);
   };
 
-  const getAuthToken = () => {
+  const getAuthHeader = () => {
     const userId = JSON.parse(localStorage.getItem('user'));
 
     if (userId && userId.token) {
@@ -35,7 +38,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const authMemo = useMemo(() => ({
-    loggedIn, signUp, logIn, logOut, getAuthToken, userName,
+    loggedIn, signUp, logIn, logOut, getAuthHeader, userName,
   }), [loggedIn]);
 
   return (

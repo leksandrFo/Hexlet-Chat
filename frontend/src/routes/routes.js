@@ -8,7 +8,6 @@ const appRoutes = {
   chatPage: () => '/',
   loginPage: () => '/login',
   registrationPage: () => '/signup',
-  notFoundPage: () => '*',
 };
 
 export { serverRoutes, appRoutes };

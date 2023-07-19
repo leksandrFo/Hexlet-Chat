@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -7,7 +6,6 @@ import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/index.jsx';
-import { serverRoutes } from '../routes/routes.js';
 import loginImage from '../assets/loginImage.jpg';
 
 const LoginPage = () => {
@@ -21,9 +19,11 @@ const LoginPage = () => {
   const validate = yup.object().shape({
     username: yup
       .string()
+      .trim()
       .required(t('errors.required')),
     password: yup
       .string()
+      .trim()
       .required(t('errors.required')),
   });
 
@@ -40,8 +40,7 @@ const LoginPage = () => {
     onSubmit: async (values, { setSubmitting }) => {
       setAuthFailed(false);
       try {
-        const { data } = await axios.post(serverRoutes.loginPath(), values);
-        auth.logIn(data);
+        await auth.logIn(values);
         const { from } = location.state || { from: { pathname: '/' } };
         navigate(from);
       } catch (error) {

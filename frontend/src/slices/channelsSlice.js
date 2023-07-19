@@ -6,9 +6,9 @@ const DEFAULT_ACTIVE_CHANNEL = 1;
 
 export const fetchChannels = createAsyncThunk(
   'channels/fetchChannels',
-  async (authToken) => {
+  async (authHeader) => {
     const { data } = await axios.get(serverRoutes.dataPath(), {
-      headers: authToken,
+      headers: authHeader,
     });
     return data;
   },
@@ -26,13 +26,12 @@ const channelsSlice = createSlice({
     },
     addChannel: channelsAdapter.addOne,
     removeChannel: (state, { payload }) => {
-      console.log('channelsSlice', payload);
       const { id } = payload;
+      channelsAdapter.removeOne(state, id);
       if (state.activeChannelId === id) {
         // eslint-disable-next-line no-param-reassign, prefer-destructuring
         state.activeChannelId = DEFAULT_ACTIVE_CHANNEL;
       }
-      channelsAdapter.removeOne(state, id);
     },
     renameChannel: channelsAdapter.setOne,
   },

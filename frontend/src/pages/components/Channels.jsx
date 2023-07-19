@@ -14,7 +14,7 @@ const Channels = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    dispatch(fetchChannels(auth.getAuthToken()));
+    dispatch(fetchChannels(auth.getAuthHeader()));
   }, [dispatch]);
 
   const channels = useSelector(selectors.selectAll);

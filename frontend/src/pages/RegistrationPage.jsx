@@ -20,12 +20,14 @@ const RegistrationPage = () => {
   const validate = yup.object().shape({
     username: yup
       .string()
+      .trim()
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
       .notOneOf(leoProfanity.words, t('errors.notCorrectUsername'))
       .required(t('errors.required')),
     password: yup
       .string()
+      .trim()
       .min(6, t('errors.passwordMin'))
       .required(t('errors.required')),
     confirmPassword: yup
@@ -81,7 +83,7 @@ const RegistrationPage = () => {
                     onChange={formik.handleChange}
                     placeholder={t('errors.usernameMinMax')}
                     name="username"
-                    autocomplete="username"
+                    autoComplete="username"
                     required=""
                     id="username"
                     className="form-floating mb-3"
