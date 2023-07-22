@@ -6,15 +6,22 @@ import { useTranslation } from 'react-i18next';
 import Channel from './Channel.jsx';
 import { fetchChannels, selectors } from '../../slices/channelsSlice.js';
 import { actions as modalsActions } from '../../slices/modalSlice.js';
-import { useAuth } from '../../hooks/index.jsx';
 
 const Channels = () => {
   const dispatch = useDispatch();
-  const auth = useAuth();
   const { t } = useTranslation();
 
+  const getHeader = () => {
+    const userId = JSON.parse(localStorage.getItem('user'));
+    if (userId && userId.token) {
+      return { Authorization: `Bearer ${userId.token}` };
+    }
+
+    return {};
+  };
+
   useEffect(() => {
-    dispatch(fetchChannels(auth.getAuthHeader()));
+    dispatch(fetchChannels(getHeader()));
   }, [dispatch]);
 
   const channels = useSelector(selectors.selectAll);

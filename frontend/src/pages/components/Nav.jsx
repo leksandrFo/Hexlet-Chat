@@ -12,7 +12,7 @@ const Nav = () => {
     <Navbar bg="white" expand="lg" className="shadow-sm">
       <Container>
         <Navbar.Brand href={appRoutes.chatPage()}>{t('header.logo')}</Navbar.Brand>
-        {auth.loggedIn ? <Button onClick={auth.logOut}>{t('header.logOut')}</Button> : null}
+        {auth.userName ? <Button onClick={auth.logOut}>{t('header.logOut')}</Button> : null}
       </Container>
     </Navbar>
   );

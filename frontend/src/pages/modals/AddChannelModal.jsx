@@ -24,6 +24,7 @@ const AddChannelModal = ({ handleClose }) => {
   const validate = yup.object().shape({
     name: yup
       .string()
+      .trim()
       .min(3, t('errors.usernameMinMax'))
       .max(20, t('errors.usernameMinMax'))
       .notOneOf([...channels.map((channel) => channel.name), ...leoProfanity.words], ({ value }) => (leoProfanity.words.includes(value) ? t('errors.notCorrectChannelName') : t('errors.unique')))
