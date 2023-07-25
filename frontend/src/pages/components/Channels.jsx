@@ -12,9 +12,9 @@ const Channels = () => {
   const { t } = useTranslation();
 
   const getHeader = () => {
-    const userId = JSON.parse(localStorage.getItem('user'));
-    if (userId && userId.token) {
-      return { Authorization: `Bearer ${userId.token}` };
+    const token = JSON.parse(localStorage.getItem('token'));
+    if (token) {
+      return { Authorization: `Bearer ${token}` };
     }
 
     return {};

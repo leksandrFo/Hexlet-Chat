@@ -8,18 +8,21 @@ const AuthProvider = ({ children }) => {
 
   const logIn = async (logInData) => {
     const { data } = await axios.post(serverRoutes.loginPath(), logInData);
-    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('user', JSON.stringify(data.username));
+    localStorage.setItem('token', JSON.stringify(data.token));
     setUserName(data.username);
   };
 
   const logOut = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     setUserName(null);
   };
 
   const signUp = async (signUpData) => {
     const { data } = await axios.post(serverRoutes.registrationPath(), signUpData);
-    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('user', JSON.stringify(data.username));
+    localStorage.setItem('token', JSON.stringify(data.token));
     setUserName(data.username);
   };
 

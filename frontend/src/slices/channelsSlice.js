@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { serverRoutes } from '../routes/routes.js';
@@ -21,7 +22,6 @@ const channelsSlice = createSlice({
   initialState: channelsAdapter.getInitialState(),
   reducers: {
     setActiveChannel: (state, { payload }) => {
-      // eslint-disable-next-line no-param-reassign
       state.activeChannelId = payload;
     },
     addChannel: channelsAdapter.addOne,
@@ -29,7 +29,6 @@ const channelsSlice = createSlice({
       const { id } = payload;
       channelsAdapter.removeOne(state, id);
       if (state.activeChannelId === id) {
-        // eslint-disable-next-line no-param-reassign, prefer-destructuring
         state.activeChannelId = DEFAULT_ACTIVE_CHANNEL;
       }
     },
@@ -39,7 +38,7 @@ const channelsSlice = createSlice({
     builder
       .addCase(fetchChannels.fulfilled, (state, { payload }) => {
         channelsAdapter.setAll(state, payload.channels);
-        // eslint-disable-next-line no-param-reassign
+
         state.activeChannelId = DEFAULT_ACTIVE_CHANNEL;
       });
   },

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { appRoutes } from '../routes/routes';
 import notFoundImage from '../assets/notFoundImage.svg';
 
 const NotFoundPage = () => {
@@ -11,7 +12,7 @@ const NotFoundPage = () => {
       <p className="text-muted">
         {t('notFoundPage.goTo')}
         {' '}
-        <a href="/">{t('notFoundPage.mainLink')}</a>
+        <a href={appRoutes.chatPage()}>{t('notFoundPage.mainLink')}</a>
       </p>
     </div>
   );

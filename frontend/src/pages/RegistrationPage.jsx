@@ -7,6 +7,7 @@ import leoProfanity from 'leo-profanity';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/index.jsx';
+import { appRoutes } from '../routes/routes.js';
 import registrationImage from '../assets/registrationImage.jpg';
 
 const RegistrationPage = () => {
@@ -50,7 +51,7 @@ const RegistrationPage = () => {
     onSubmit: async (values, { setSubmitting }) => {
       try {
         await auth.signUp(values);
-        const { from } = location.state || { from: { pathname: '/' } };
+        const { from } = location.state || { from: { pathname: appRoutes.chatPage() } };
         navigate(from);
       } catch (error) {
         setSubmitting(false);
@@ -105,7 +106,7 @@ const RegistrationPage = () => {
                     name="password"
                     aria-describedby="passwordHelpBlock"
                     required=""
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     type="password"
                     id="password"
                     className="form-control"
@@ -125,7 +126,7 @@ const RegistrationPage = () => {
                     placeholder={t('errors.passwordMatch')}
                     name="confirmPassword"
                     required=""
-                    autocomplete="new-password"
+                    autoComplete="new-password"
                     type="password"
                     id="confirmPassword"
                     className="form-control"

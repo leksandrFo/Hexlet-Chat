@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { Form, FormControl, FormLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/index.jsx';
+import { appRoutes } from '../routes/routes.js';
 import loginImage from '../assets/loginImage.jpg';
 
 const LoginPage = () => {
@@ -41,7 +42,7 @@ const LoginPage = () => {
       setAuthFailed(false);
       try {
         await auth.logIn(values);
-        const { from } = location.state || { from: { pathname: '/' } };
+        const { from } = location.state || { from: { pathname: appRoutes.chatPage() } };
         navigate(from);
       } catch (error) {
         setSubmitting(false);
@@ -106,7 +107,7 @@ const LoginPage = () => {
               <div className="text-center">
                 <span>{t('loginPage.noAccount')}</span>
                 {' '}
-                <a href="/signup">{t('loginPage.signUp')}</a>
+                <a href={appRoutes.registrationPage()}>{t('loginPage.signUp')}</a>
               </div>
             </div>
           </div>
