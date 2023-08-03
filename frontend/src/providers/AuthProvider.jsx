@@ -4,7 +4,8 @@ import AuthContext from '../contexts/AuthContext.jsx';
 import { serverRoutes } from '../routes/routes.js';
 
 const AuthProvider = ({ children }) => {
-  const [userName, setUserName] = useState(null);
+  const user = localStorage.getItem('user');
+  const [userName, setUserName] = useState(user);
 
   const logIn = async (logInData) => {
     const { data } = await axios.post(serverRoutes.loginPath(), logInData);
