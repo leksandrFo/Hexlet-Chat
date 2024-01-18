@@ -11,7 +11,7 @@ The application implements authentication and registration of new users, the abi
 ## Installation:
 1. Create clone of the repository
 ```
-git clone git@github.com:leksandrFo/frontend-project-12.git
+git clone git@github.com:leksandrFo/Hexlet-Chat.git
 ```
 2. Navigate to the repository you just cloned
 ```
